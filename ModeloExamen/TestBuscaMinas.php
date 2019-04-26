@@ -27,6 +27,7 @@ final class TestBuscaMinas extends TestCase
         $tablero->jugar(5,5);
         $tablero->jugar(4,2);
         $this->assertFalse($tablero->gano());
+
     }
     public function testPerdio()
     {
@@ -41,8 +42,11 @@ final class TestBuscaMinas extends TestCase
     public function testAgregoMina()
     {
         $tablero = $this->crearTablero();
+        //agrega mina en una posicion vacia
         $this->assertTrue($tablero->agregarMina (5,5));
         $this->assertTrue($tablero->agregarMina (7,7));
+        //agrega una mina en una posicion ocupada
+        $this->assertFalse ($tablero->agregarMina(2,3));
     }
 
     public function testGano()
@@ -53,8 +57,12 @@ final class TestBuscaMinas extends TestCase
         $tablero->sacarMina(5,3);
         $this->assertTrue($tablero->gano());
     }
-    public function testMinaDuplicada (){
+    public function testSacarMina ()
+    {
         $tablero = $this->crearTablero();
-        $this->assertFalse ($tablero->agregarMina(2,3));
+        //mina que existe
+        $this->assertTrue($tablero->sacarMina (2,3));
+        //mina que no existe
+        $this->assertFalse($tablero->sacarMina (5,5));
     }
 }
