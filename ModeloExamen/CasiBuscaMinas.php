@@ -16,6 +16,9 @@ class BuscaMinas {
   }
 
   public function agregarMina($x, $y) {
+    if (!isset($this->minas[$x][$y])) {
+      return false;
+    }
     if ($this->minas[$x][$y] < 0) {
       return false;
     }
