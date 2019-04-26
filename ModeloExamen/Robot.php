@@ -32,18 +32,32 @@
  */
 
 class Robot {
+  private $bat = 0;
+  private $posicionX = 0;
+  private $posicionY = 0;
+
   public function cargar() {
+    $this->bat = 100;
   }
 
   public function bateria() {
+    return $this->bat;
   }
 
   public function posicionX() {
+    return $this->posicionX;
   }
 
   public function posicionY() {
+    return $this->posicionY;
   }
 
   public function mover($x, $y) {
+    if ($this->bat < 10 ){
+      return false;}
+    $this->posicionX=$x;
+    $this->posicionY=$y;
+    $this->bat = $this->bat - 10;
+    return true;
   }
 }
