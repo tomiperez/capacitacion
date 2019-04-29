@@ -31,8 +31,10 @@ final class TestBuscaMinas extends TestCase
     }
     public function testPerdio()
     {
+        //jugo y toco una mina
         $tablero = $this->crearTablero();
         $this->assertFalse($tablero->jugar(1,7));
+        
     }
     public function testAgregarFuera()
     {
