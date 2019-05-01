@@ -7,9 +7,9 @@ final class AhorcadoTest extends TestCase
   public function testExisteAhorcado() {
     $this->assertTrue(class_exists("Ahorcado"));
   }
-  public function testPalabraEnConstructor() {
-    $ahorcado = new Ahorcado("chachara", 5);
-  }
+  // public function testPalabraEnConstructor() {
+  //   $ahorcado = new Ahorcado("chachara", 5);
+  // }
   public function testTieneLaPalabraQueYoDigo() {
     $palabra = "chachara".rand(0, 1000);
     $ahorcado = new Ahorcado($palabra, 5);
@@ -61,7 +61,7 @@ final class AhorcadoTest extends TestCase
     $ahorcado = new Ahorcado("cha", 5);
     $this->assertEquals(
       '_ _ _',
-      $ahorcado->mostrar()
+      $ahorcado->mostrarResultado()
     );
   }
   function testMostrarCasiTodoOculto() {
@@ -69,19 +69,19 @@ final class AhorcadoTest extends TestCase
     $ahorcado->pasarLetra("h");
     $this->assertEquals(
       '_ h _',
-      $ahorcado->mostrar()
+      $ahorcado->mostrarResultado()
     );
     $this->assertFalse($ahorcado->gano());
     $ahorcado->pasarLetra("a");
     $this->assertEquals(
       '_ h a',
-      $ahorcado->mostrar()
+      $ahorcado->mostrarResultado()
     );
     $this->assertFalse($ahorcado->gano());
     $ahorcado->pasarLetra("c");
     $this->assertEquals(
       'c h a',
-      $ahorcado->mostrar()
+      $ahorcado->mostrarResultado()
     );
     $this->assertTrue($ahorcado->gano());
   }

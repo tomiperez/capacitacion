@@ -1,52 +1,58 @@
 <?php
+ 
 require './vendor/autoload.php';
+require 'Palabra.php';
 class Ahorcado {
   private $palabra;
   private $intentos;
-  private $resultado;
+  private $letrasAcertadas;
+ 
   public function __construct($palabra, $intentos) {
     $this->palabra = $palabra;
     $this->intentos = $intentos;
-  }
-  public function armarTablero(){
-    for ($i=0; $i< strlen($this->palabra); $i++){
-      $this->resultado[$i] = "_ ";
-      }
-      
+    $this->letrasAcertadas = array();
   }
   public function damePalabra() {
     return $this->palabra;
   }
+ 
   public function dameIntentos() {
     return $this->intentos;
   }
+ 
   public function mostrarResultado() {
-    for ($i=0; $i< strlen($this->palabra); $i++){
-      echo $this->resultado[$i] . '';
-    }
-  }
-  public function pasarLetra($caracter)
-  {
-    if ($this->intentos>0){
-      $fallos=0;
-      $tempL=strlen ($this->palabra);
-      for ($i=0; $i<$tempL; $i++){
-        if ($this->palabra[$i]===$caracter && $this->resultado[$i] != $caracter){
-          $this->resultado[$i]= $caracter;
-        }else{
-          $fallos++;
+    $arrayPalabraTemp = [];
+      foreach(str_split($this->palabra) as $k => $w){
+        $arrayPalabraTemp[$k] = '_';
+        foreach($this->letrasAcertadas as $v){
+          if($v == $w){
+            $arrayPalabraTemp[$k] = $v;
+          }
         }
       }
-      if ($fallos===$tempL){
+      foreach($arrayPalabraTemp as $v){
+        echo $v . ' ';
+      }
+    return implode(' ', $arrayPalabraTemp);
+  }
+  public function pasarLetra($letra)
+  {
+    foreach($this->letrasAcertadas as $v){
+      if($letra == $v){
         $this->intentos--;
         return false;
       }
-      return true;  
     }
+    foreach(str_split($this->palabra) as $k => $v){
+      if(str_split($this->palabra)[$k] == $letra){
+        $this->letrasAcertadas[] = $letra;
+        return true;
+      }      
+    }
+    $this->intentos--;
+    return false;
   }
-   
-  
- public function dameIntentosRestantes()
+  public function dameIntentosRestantes()
   {
     return $this->intentos;
   }
@@ -57,30 +63,33 @@ class Ahorcado {
     }
     return false;
   }
-  public function gano(){
-    $arrayTemp = array_diff(str_split($this->palabra), $this->resultado);
+  public function gano()
+  {
+    $arrayTemp = array_diff(str_split($this->palabra), $this->letrasAcertadas);
     if(sizeof($arrayTemp) == 0){
-      echo 'Ganó!!' . "\n";
+      echo 'Ganó!' . "\n";
       return true;
     }else{
       return false;
     }
   }
 }
-$ahor = new Ahorcado('chachara', 9);
-$ahor->armarTablero();
-$ahor->pasarLetra('h');
-$ahor->mostrarResultado();
-echo "\n";
-$ahor->gano();
-$ahor->pasarLetra('c');
-$ahor->mostrarResultado();
-echo "\n";
-$ahor->gano();
-$ahor->pasarLetra('a');
-$ahor->mostrarResultado();
-echo "\n";
-$ahor->pasarLetra('r');
-$ahor->mostrarResultado();
-echo "\n";
-$ahor->gano();
+
+ $ahor = new Ahorcado('chachara', 5);
+ $ahor->mostrarResultado();
+ echo "\n";
+ $ahor->pasarLetra('h');
+ $ahor->mostrarResultado();
+ echo "\n";
+ $ahor->gano();
+ $ahor->pasarLetra('c');
+ $ahor->mostrarResultado();
+ echo "\n";
+ $ahor->gano();
+ $ahor->pasarLetra('a');
+ $ahor->mostrarResultado();
+ echo "\n";
+ $ahor->pasarLetra('r');
+ $ahor->mostrarResultado();
+ echo "\n";
+ $ahor->gano();
