@@ -39,8 +39,6 @@ class Palabra implements ControllerInterface
             echo "<a href=/?path=jugar&letra=y> y </a> - ";
             echo "<a href=/?path=jugar&letra=z> z </a>";
 
-
-
             echo "</pre>";
     }
 }
