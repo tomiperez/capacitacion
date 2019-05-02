@@ -46,12 +46,12 @@ class CatalogoNetflix {
       return true;
   }
 
-  public function agrearPelicula($id, $nombre, $caps, $categoria) {
+  public function agrearPelicula($id, $nombre, $tiempo, $categoria) {
     if (!isset ($this->catalogo[$id])){
       $this->catalogo[$id]=array(
         'id' => $id,
         'nombre' => $nombre,
-        'caps' => $caps,
+        'tiempo' => $tiempo,
         'categoria' => $categoria,
       );
       return true;
