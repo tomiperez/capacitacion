@@ -13,7 +13,10 @@ class Letra implements ControllerInterface
             echo "<pre>";
             echo "<h1> Ahorcado </h1>" . "\n";
             echo $nuevoJuego->mostrar() . "\n";
-            echo "\n";
+            
+            echo "<br><br>". "intentos restantes: " . $nuevoJuego->dameIntentosRestantes();
+            echo "<br><br>";
+
             echo "<a href=/?path=jugar&letra=a> a </a> - ";
             echo "<a href=/?path=jugar&letra=b> b </a> - ";
             echo "<a href=/?path=jugar&letra=c> c </a> - ";
@@ -41,7 +44,7 @@ class Letra implements ControllerInterface
             echo "<a href=/?path=jugar&letra=y> y </a> - ";
             echo "<a href=/?path=jugar&letra=z> z </a>";
 
-           echo "<br><br>". "intentos restantes: " . $nuevoJuego->dameIntentosRestantes();
+           
 
            if (strlen($nuevoJuego->damePalabra() == $nuevoJuego->gano() and $nuevoJuego->dameIntentosRestantes()>0)){
                echo "<h4>ganó</h4>";

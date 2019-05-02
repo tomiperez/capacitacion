@@ -11,7 +11,10 @@ class Palabra implements ControllerInterface
             echo "<pre>";
             echo "<h1> Ahorcado </h1>" . "\n";
             echo $ahorcado->mostrar() . "\n" ;
-            echo "\n";
+        
+            echo "<br><br>". "intentos restantes: " . $ahorcado->dameIntentosRestantes();
+            echo "<br><br>";
+            
             echo "<a href=/?path=jugar&letra=a> a </a> - ";
             echo "<a href=/?path=jugar&letra=b> b </a> - ";
             echo "<a href=/?path=jugar&letra=c> c </a> - ";
