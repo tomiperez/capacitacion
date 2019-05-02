@@ -1,95 +1,59 @@
 <?php
  
-require './vendor/autoload.php';
-require 'Palabra.php';
 class Ahorcado {
   private $palabra;
+  private $letras = array();
   private $intentos;
-  private $letrasAcertadas;
  
   public function __construct($palabra, $intentos) {
     $this->palabra = $palabra;
     $this->intentos = $intentos;
-    $this->letrasAcertadas = array();
   }
   public function damePalabra() {
     return $this->palabra;
   }
  
-  public function dameIntentos() {
+  public function pasarLetra($letra) {
+    if (!empty($this->letras[$letra])) {
+      $this->intentos--;
+      return false;
+    }
+    $this->letras[$letra] = 1;
+    if (strpos($this->palabra, $letra) === false) {
+      $this->intentos--;
+      return false;
+    }
+    return true;
+  }
+ 
+  public function dameIntentosRestantes() {
     return $this->intentos;
   }
  
-  public function mostrarResultado() {
-    $arrayPalabraTemp = [];
-      foreach(str_split($this->palabra) as $k => $w){
-        $arrayPalabraTemp[$k] = '_';
-        foreach($this->letrasAcertadas as $v){
-          if($v == $w){
-            $arrayPalabraTemp[$k] = $v;
-          }
-        }
-      }
-      foreach($arrayPalabraTemp as $v){
-        echo $v . ' ';
-      }
-    return implode(' ', $arrayPalabraTemp);
-  }
-  public function pasarLetra($letra)
-  {
-    foreach($this->letrasAcertadas as $v){
-      if($letra == $v){
-        $this->intentos--;
-        return false;
+  public function gano() {
+    $count = 0;
+    for($i=0; $i<strlen($this->palabra); $i++) {
+      if (!empty($this->letras[ $this->palabra[$i] ])) {
+        $count++;
       }
     }
-    foreach(str_split($this->palabra) as $k => $v){
-      if(str_split($this->palabra)[$k] == $letra){
-        $this->letrasAcertadas[] = $letra;
-        return true;
-      }      
-    }
-    $this->intentos--;
-    return false;
+    return $count == strlen($this->palabra);
   }
-  public function dameIntentosRestantes()
-  {
-    return $this->intentos;
+ 
+  public function perdio() {
+    return $this->intentos == 0;
   }
-  public function perdio()
-  {
-    if($this->intentos == 0){
-      return true;
+ 
+  public function mostrar() {
+    $mostrar = "";
+    for($i=0; $i<strlen($this->palabra); $i++) {
+      if (empty($this->letras[ $this->palabra[$i] ])) {
+        $mostrar .= ' _ ';
+      } else {
+        $mostrar .= ' ' . $this->palabra[$i] . ' ';
+      }
     }
-    return false;
-  }
-  public function gano()
-  {
-    $arrayTemp = array_diff(str_split($this->palabra), $this->letrasAcertadas);
-    if(sizeof($arrayTemp) == 0){
-      echo 'Ganó!' . "\n";
-      return true;
-    }else{
-      return false;
-    }
+    
+    return $mostrar;
   }
 }
-
- $ahor = new Ahorcado('chachara', 5);
- $ahor->mostrarResultado();
- echo "\n";
- $ahor->pasarLetra('h');
- $ahor->mostrarResultado();
- echo "\n";
- $ahor->gano();
- $ahor->pasarLetra('c');
- $ahor->mostrarResultado();
- echo "\n";
- $ahor->gano();
- $ahor->pasarLetra('a');
- $ahor->mostrarResultado();
- echo "\n";
- $ahor->pasarLetra('r');
- $ahor->mostrarResultado();
- echo "\n";
- $ahor->gano();

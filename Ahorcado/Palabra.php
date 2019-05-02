@@ -1,11 +1,13 @@
 <?php
-class Palabra
+class Palabra implements ControllerInterface
 {
-    private $palabra;
     public function get()
     {
-        if (isset($_GET ['palabra'])){
-        $this->palabra = $_GET['palabra'];
-        return $this->palabra;}
+            $_SESSION ['palabra'] = $_GET['palabra'];
+            $_SESSION ['letras'] =array();
+            $ahorcado = new Ahorcado ($_SESSION['palabra'],5);
+    
+            echo $ahorcado->mostrar() ;
+            
     }
 }
