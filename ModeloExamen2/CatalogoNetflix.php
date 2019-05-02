@@ -24,63 +24,66 @@
  */
 
 class CatalogoNetflix {
- private $catalogo = array();
+  /**
+   * Esta funcion solo nos dice si existe la pelicula o serie con
+   * el id que nos pasan
+   */
+  private $catalogo = array();
   public function existeId($id) {
-    if (isset ($this->catalogo[$id])){
-    return true;
+    if (isset($this->catalogo[$id])){
+      return true;
     }else{
-    return false;
-    }
+    return false;}
   }
 
-  public function agregarSerie($id, $nombre, $caps, $categoria) {
-    if (isset ($this->catalogo[$id])){
+  public function agregarSerie($id, $nombre, $cantidadCapitulos, $categoria) {
+    if (isset($catalogo[$id])){
       return false;
-      }
-      $this->catalogo[$id]=array(
-        'id' => $id,
-        'nombre' => $nombre,
-        'caps' => $caps,
-        'categoria' => $categoria,
-      );
-      return true;
+    }
+    $this->catalogo[$id]=array(
+      'id'=>$id,
+      'nombre'=>$nombre,
+      'cantidadCapitulos'=>$cantidadCapitulos,
+      'categoria'=>$categoria,
+    );
+    return true;
   }
 
   public function agrearPelicula($id, $nombre, $tiempo, $categoria) {
-    if (!isset ($this->catalogo[$id])){
-      $this->catalogo[$id]=array(
-        'id' => $id,
-        'nombre' => $nombre,
-        'tiempo' => $tiempo,
-        'categoria' => $categoria,
-      );
-      return true;
-      }else{
-        return false;
-      }
+    if (isset($catalogo[$id])){
+      return false;
+    }
+    $this->catalogo[$id]=array(
+      'id'=>$id,
+      'nombre'=>$nombre,
+      'tiempo'=>$tiempo,
+      'categoria'=>$categoria,
+    );
+    return true;
   }
-
   public function sacarSerie($id) {
-    if (!isset ($this->catalogo[$id])){
+    if (!isset($this->catalogo[$id])){
       return false;
     }
     unset($this->catalogo[$id]);
+    array_values($this->catalogo);
     return true;
   }
 
   public function sacarPelicula($id) {
-    if (!isset ($this->catalogo[$id])){
+    if (!isset($this->catalogo[$id])){
       return false;
     }
     unset($this->catalogo[$id]);
+    array_values($this->catalogo);
     return true;
   }
 
   public function listarContenidoDeLaCategoria($categoria) {
-    $temp = array();
-    foreach ($this->catalogo as $contenido) {
-      if ($contenido['categoria'] == $categoria) {
-        $temp[] = $contenido;
+    $temp=array();
+    foreach ($this->catalogo as $value){
+      if ($value['categoria']==$categoria){
+        $temp[]=$value;
       }
     }
     return $temp;
