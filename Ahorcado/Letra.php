@@ -6,7 +6,6 @@ class Letra implements ControllerInterface
     {
         $_SESSION['letras'] [] = $_GET['letra'];
         $nuevoJuego= new Ahorcado($_SESSION['palabra'],5);
-
         foreach ($_SESSION['letras'] as $valor){
             $nuevoJuego->pasarLetra($valor);
         }   
@@ -22,7 +21,7 @@ class Letra implements ControllerInterface
             echo "<a href=/?path=jugar&letra=c> c </a> - ";
             echo "<a href=/?path=jugar&letra=d> d </a> - ";
             echo "<a href=/?path=jugar&letra=e> e </a> - ";
-            echo "<a href=/?path=jugar&letra=f> f </a> - ";
+            echo "<a href=/?path=jugar&letra=f> f </a> - "; 
             echo "<a href=/?path=jugar&letra=g> g </a> - ";
             echo "<a href=/?path=jugar&letra=h> h </a> - ";
             echo "<a href=/?path=jugar&letra=i> i </a> - ";
@@ -43,14 +42,17 @@ class Letra implements ControllerInterface
             echo "<a href=/?path=jugar&letra=x> x </a> - ";
             echo "<a href=/?path=jugar&letra=y> y </a> - ";
             echo "<a href=/?path=jugar&letra=z> z </a>";
-
            
 
-           if (strlen($nuevoJuego->damePalabra() == $nuevoJuego->gano() and $nuevoJuego->dameIntentosRestantes()>0)){
+
+           if (strlen($nuevoJuego->damePalabra() == $nuevoJuego->gano()) && $_SESSION['gano'] !=1 ){
                echo "<h4>ganó</h4>";
-           }
-           elseif ($nuevoJuego->dameIntentosRestantes() <= 0){
+               return $_SESSION['gano'] = 2;
+
+            }
+           if ($nuevoJuego->dameIntentosRestantes() <= 0 && $_SESSION ['gano'] < 2){
             echo "<h4>perdió</h4>";
+            return $_SESSION['gano'] = 1;
            }
            echo "</pre>";
     }
